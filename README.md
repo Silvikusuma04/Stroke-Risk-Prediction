@@ -31,7 +31,7 @@ Urgensi di Indonesia terlihat dari:
 3. Gani, L., Mihardja, L., & Delima. (2016). Faktor risiko dominan penderita stroke di Indonesia. Buletin Penelitian Kesehatan, 44(1).
 4. Tempo.co. (2018). Kemenkes: Tren Kasus Stroke Alami Peningkatan dan Jadi Penyebab Kematian Tertinggi. [https://www.tempo.co/politik/kemenkes-tren-kasus-stroke-alami-peningkatan-dan-jadi-penyebab-kematian-tertinggi-1161217](https://www.tempo.co/politik/kemenkes-tren-kasus-stroke-alami-peningkatan-dan-jadi-penyebab-kematian-tertinggi-1161217)
 5. Stroke Association UK. (2023). Stroke Statistics. Retrieved from [https://www.stroke.org.uk/stroke/statistics](https://www.stroke.org.uk/stroke/statistics)
-6. Cheng, Y., Lin, Y., Shi, H., Cheng, M., Zhang, B., Liu, X., Shi, C., Wang, Y., Xia, C., & Xie, W. (2023). Projections of the Stroke Burden at the Global, Regional, and National Levels up to 2050 Based on the Global Burden of Disease Study 2021. Journal of Clinical Medicine, 12(14), Article PMC11681572. Retrieved from [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11681572/] (https://pmc.ncbi.nlm.nih.gov/articles/PMC11681572/)
+6. Cheng, Y., Lin, Y., Shi, H., Cheng, M., Zhang, B., Liu, X., Shi, C., Wang, Y., Xia, C., & Xie, W. (2023). Projections of the Stroke Burden at the Global, Regional, and National Levels up to 2050 Based on the Global Burden of Disease Study 2021. Journal of Clinical Medicine, 12(14), Article PMC11681572. Retrieved from [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11681572/](https://pmc.ncbi.nlm.nih.gov/articles/PMC11681572/)
 
 ---
 
