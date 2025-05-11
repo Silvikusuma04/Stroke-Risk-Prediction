@@ -127,12 +127,15 @@ Setiap baris data merepresentasikan kondisi medis, gejala, dan penilaian risiko 
 | 17 | At Risk (Binary)               | (0/1): Target klasifikasi.          |
 | 18 | Age                            | Usia pasien.                        |
 
-### Ringkasan Data
+### Tentang Data
 
 * **Jumlah Data:** 70.000 baris.
 * **Jumlah Fitur:** 17 fitur prediktor + 1 target.
 * **Tipe Data:** Mayoritas numerik diskrit (biner), dua numerik kontinu (Stroke Risk %, Age).
-* **Distribusi Kelas:** Seimbang 50% berisiko dan 50% tidak berisiko.
+* **Distribusi Kelas:** Terdapat ketidakseimbangan kelas untuk target At Risk (Binary) dengan 65% data berisiko stroke dengan jumlah data +- 45000 dan 35% tidak berisiko dengan jumlah data +- 25000.
+* **Missing value:** Tidak terdapat missing value pada seluruh kolom.
+* **Outliner:** Terdapat outlier pada variabel Stroke Risk (%) di rentang nilai ekstrem (di atas 95% atau di bawah 20%).
+* **Skewness:** Hampir seluruh variabel memiliki skewness mendekati nol, menunjukkan distribusi relatif simetris.
 
 ---
 
