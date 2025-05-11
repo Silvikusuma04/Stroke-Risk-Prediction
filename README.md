@@ -1,6 +1,6 @@
 # Prediksi Risiko Stroke di Indonesia
 
-## Domain Permasalahan
+## Domain Proyek
 
 Stroke merupakan **penyebab kematian utama** di Indonesia sekaligus penyebab kecacatan nomor satu. Menurut data Kementerian Kesehatan (SKI 2023), prevalensi stroke nasional terus meningkat dari **7 per mil (2013)** menjadi **10,9 per mil (2018)**, dengan estimasi terbaru sekitar **8,3 kasus per 1.000 penduduk**. Hal ini berarti semakin banyak penduduk yang terdampak stroke seiring waktu. Secara absolut, diperkirakan **500.000 kasus stroke terjadi setiap tahun di Indonesia**, dan sekitar **125.000 di antaranya berakhir dengan kematian**. Tingginya angka ini menjadikan stroke beban besar bagi sistem kesehatan dan ekonomi. Bahkan, sekitar **90% penyintas stroke** mengalami **disabilitas** jangka panjang, sehingga stroke tidak hanya mematikan namun juga menurunkan kualitas hidup pasien.
 
@@ -8,12 +8,30 @@ Faktor risiko stroke di Indonesia sangat dipengaruhi oleh **gaya hidup dan kondi
 
 Kondisi di atas menjadikan **upaya pencegahan dan deteksi dini** sebagai prioritas. Kementerian Kesehatan RI melalui kampanye *“Kenali dan Kendalikan Stroke”* menekankan pentingnya **mengendalikan faktor risiko** dengan berhenti merokok, rutin berolahraga, diet sehat, menghindari gaya hidup sedentari, serta cek tekanan darah berkala. Namun, intervensi preventif sering terkendala kurangnya deteksi dini individu berisiko tinggi di tingkat layanan primer. **Model prediktif berbasis data** berpotensi membantu mengatasi kendala ini. Dengan memanfaatkan data gejala dan indikator medis pasien, model **machine learning** dapat **mengidentifikasi individu berisiko stroke** secara lebih akurat dan cepat. Prediksi risiko yang akurat akan mendukung tenaga kesehatan melakukan **skrining proaktif** dan edukasi pencegahan pada kelompok rentan sebelum stroke terjadi. Hal ini sejalan dengan tren *data-driven healthcare* dimana analisis data digunakan untuk **mitigasi risiko penyakit** secara preventif. Dengan kata lain, model prediksi risiko stroke dapat menjadi alat pengambil keputusan di layanan kesehatan primer untuk menekan beban stroke yang kian meningkat di Indonesia.
 
+### Permasalahan dan Urgensi
+
+Stroke merupakan penyebab kematian dan kecacatan utama di Indonesia. Berdasarkan data dari Kementerian Kesehatan RI serta studi-studi akademik nasional dan internasional, kasus stroke di Indonesia menunjukkan tren peningkatan yang signifikan dari tahun ke tahun. Bahkan, menurut laporan dari Stroke Association UK (2023), secara global stroke telah menjadi penyebab utama kematian kedua, dan laporan PMC (2023) menunjukkan bahwa prediksi risiko stroke berbasis data terbukti efektif menurunkan beban penyakit jika diimplementasikan secara luas.
+
+Urgensi di Indonesia terlihat dari:
+
+* 500.000 kasus stroke setiap tahun, dengan 125.000 kematian (Kemenkes RI).
+* 90% penyintas mengalami disabilitas jangka panjang (SKI 2023).
+* Keterbatasan skrining risiko di layanan primer.
+
+### Solusi yang Diajukan
+
+* Membangun model prediksi risiko stroke menggunakan machine learning berbasis data gejala dan indikator medis.
+* Mengimplementasikan algoritma Logistic Regression, Random Forest, dan SVM untuk membandingkan performa klasifikasi.
+* Menyediakan sistem pendukung keputusan untuk skrining dini stroke di tingkat layanan primer berbasis data driven healthcare.
+
 **Referensi:**
 
 1. Darmawati, A., Prasetyo, S., & Najah, M. (2024). Stroke pada Lansia di Indonesia. Jurnal Biostatistik, Kependudukan, dan Informatika Kesehatan, 5(1), 4.
 2. Khariri, & Saraswati, R. D. (2021). Transisi epidemiologi stroke. Seminar Nasional Riset Kedokteran.
 3. Gani, L., Mihardja, L., & Delima. (2016). Faktor risiko dominan penderita stroke di Indonesia. Buletin Penelitian Kesehatan, 44(1).
 4. Tempo.co. (2018). Kemenkes: Tren Kasus Stroke Alami Peningkatan dan Jadi Penyebab Kematian Tertinggi. [https://www.tempo.co/politik/kemenkes-tren-kasus-stroke-alami-peningkatan-dan-jadi-penyebab-kematian-tertinggi-1161217](https://www.tempo.co/politik/kemenkes-tren-kasus-stroke-alami-peningkatan-dan-jadi-penyebab-kematian-tertinggi-1161217)
+5. Stroke Association UK. (2023). Stroke Statistics. Retrieved from [https://www.stroke.org.uk/stroke/statistics](https://www.stroke.org.uk/stroke/statistics)
+6. Cheng, Y., Lin, Y., Shi, H., Cheng, M., Zhang, B., Liu, X., Shi, C., Wang, Y., Xia, C., & Xie, W. (2023). Projections of the Stroke Burden at the Global, Regional, and National Levels up to 2050 Based on the Global Burden of Disease Study 2021. Journal of Clinical Medicine, 12(14), Article PMC11681572. Retrieved from [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11681572/] (https://pmc.ncbi.nlm.nih.gov/articles/PMC11681572/)
 
 ---
 
@@ -225,17 +243,40 @@ Dataset awal menunjukkan ketidakseimbangan kelas yang moderat. Untuk mencegah bi
 
 ![Distribusi Setelah SMOTE](img/smote.png)
 
+### 4. Simpan Data preprosessing
+
+Setelah proses SMOTE selesai, dataset hasil balancing disimpan sebagai `stroke_data_preprocessed_smote.csv` untuk kebutuhan replikasi:
+
+```python
+X_resampled['At Risk (Binary)'] = y_resampled
+X_resampled.to_csv('stroke_data_preprocessed_smote.csv', index=False)
+```
+
+### 5. Simpan Scaler
+
+Setelah proses scaling, objek `StandardScaler` disimpan menggunakan `joblib` ke dalam file `scaler_stroke.pkl`. File ini akan digunakan saat proses inference untuk memastikan konsistensi skala input.
+
+```python
+joblib.dump(scaler, 'scaler_stroke.pkl')
+```
+
+### 6. Split Data
+
+Data yang telah diproses melalui tahapan preprocessing dibagi menjadi 80% data pelatihan dan 20% data pengujian. Pembagian ini menggunakan `train_test_split` dari library `sklearn.model_selection` untuk memastikan adanya data uji yang benar-benar belum dilihat oleh model pada saat pelatihan.
+
+````python
+X = X_resampled.drop('At Risk (Binary)', axis=1)
+y = y_resampled
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
+````
+
 ---
 
 ## Modeling
 
 Tiga algoritma klasifikasi digunakan dalam proyek ini: **Logistic Regression**, **Random Forest**, dan **Support Vector Machine (SVM)**. Masing-masing model dipilih berdasarkan karakteristik dataset dan tujuan utama klasifikasi, serta dilakukan evaluasi komprehensif untuk menentukan performa dan kelayakan model dalam konteks deployment nyata.
 
-### 1. Pembagian Data
-
-Data yang telah diproses melalui tahapan preprocessing dibagi menjadi 80% data pelatihan dan 20% data pengujian. Pembagian ini menggunakan `train_test_split` dari library `sklearn.model_selection` untuk memastikan adanya data uji yang benar-benar belum dilihat oleh model pada saat pelatihan.
-
-### 2. Logistic Regression
+### 1. Logistic Regression
 
 ![Confusion Matrix Logistic Regression](img/logistik.png)
 
@@ -251,7 +292,7 @@ Model pertama yang dilatih adalah **Logistic Regression** sebagai baseline.
   * Kurang mampu menangkap pola non-linear.
   * Sensitif terhadap multikolinearitas.
 
-### 3. Random Forest Classifier
+### 2. Random Forest Classifier
 
 ![Confusion Matrix Random Forest](img/randomf.png)
 
@@ -274,7 +315,7 @@ Model ensambel berbasis pohon keputusan.
 * F1-Score: 1.00
 * Confusion Matrix: TP = 9089, TN = 9089, tanpa kesalahan klasifikasi.
 
-### 4. Support Vector Machine (SVM)
+### 3. Support Vector Machine (SVM)
 
 ![Confusion Matrix SVM](img/svm.png)
 
