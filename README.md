@@ -254,6 +254,7 @@ Model pertama yang dilatih adalah **Logistic Regression** sebagai baseline.
 ### 3. Random Forest Classifier
 
 ![Confusion Matrix Random Forest](img/randomf.png)
+
 Model ensambel berbasis pohon keputusan.
 
 * Kelebihan:
@@ -276,6 +277,7 @@ Model ensambel berbasis pohon keputusan.
 ### 4. Support Vector Machine (SVM)
 
 ![Confusion Matrix SVM](img/svm.png)
+
 Model margin maksimum untuk klasifikasi dua kelas.
 
 * Kelebihan:
@@ -314,15 +316,19 @@ Dengan mempertimbangkan akurasi sempurna dan efisiensi operasional, **Logistic R
 ### Metrik Evaluasi yang Digunakan
 
 1. **Accuracy**: Mengukur proporsi prediksi yang benar dibandingkan total prediksi.
+
    $Accuracy = rac{TP + TN}{TP + TN + FP + FN}$
 
 2. **Precision**: Proporsi prediksi positif yang benar dari seluruh prediksi positif.
+
    $Precision = rac{TP}{TP + FP}$
 
 3. **Recall**: Proporsi positif yang berhasil diprediksi dengan benar.
+
    $Recall = rac{TP}{TP + FN}$
 
 4. **F1-Score**: Harmonik dari precision dan recall.
+
    $F1 = 2 * rac{Precision * Recall}{Precision + Recall}$
 
 ### Hasil Evaluasi
