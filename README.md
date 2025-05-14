@@ -331,7 +331,7 @@ LogisticRegression(max_iter=1000, random_state=42)
 Model ensambel berbasis pohon keputusan yang menggunakan teknik **bagging (Bootstrap Aggregating)**. Setiap decision tree dilatih dari subset acak data dan subset acak fitur, dan prediksi akhir diambil melalui **voting mayoritas** dari semua pohon.
 
 $$
-\hat{y} = \text{mode}\left\{ h_1(x), h_2(x), ..., h_T(x) \right\}
+\hat{y} = \text{mode}(h_1(x), h_2(x), \dots, h_T(x))
 $$
 
 di mana:
