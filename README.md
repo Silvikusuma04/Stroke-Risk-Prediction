@@ -246,21 +246,21 @@ Dataset awal menunjukkan ketidakseimbangan kelas yang moderat. Untuk mencegah bi
 
 ![Distribusi Setelah SMOTE](img/smote.png)
 
-### 4. Simpan Data preprosessing
+
+### 4. Simpan Scaler
+
+Setelah proses scaling, objek `StandardScaler` disimpan menggunakan `joblib` ke dalam file `scaler_stroke.pkl`. File ini akan digunakan saat proses inference untuk memastikan konsistensi skala input.
+
+```python
+joblib.dump(scaler, 'scaler_stroke.pkl')
+
+### 5. Simpan Data preprosessing
 
 Setelah proses SMOTE selesai, dataset hasil balancing disimpan sebagai `stroke_data_preprocessed_smote.csv` untuk kebutuhan replikasi:
 
 ```python
 X_resampled['At Risk (Binary)'] = y_resampled
 X_resampled.to_csv('stroke_data_preprocessed_smote.csv', index=False)
-```
-
-### 5. Simpan Scaler
-
-Setelah proses scaling, objek `StandardScaler` disimpan menggunakan `joblib` ke dalam file `scaler_stroke.pkl`. File ini akan digunakan saat proses inference untuk memastikan konsistensi skala input.
-
-```python
-joblib.dump(scaler, 'scaler_stroke.pkl')
 ```
 
 ### 6. Split Data
