@@ -253,6 +253,7 @@ Setelah proses scaling, objek `StandardScaler` disimpan menggunakan `joblib` ke 
 
 ```python
 joblib.dump(scaler, 'scaler_stroke.pkl')
+```
 
 ### 5. Simpan Data preprosessing
 
@@ -283,32 +284,81 @@ Tiga algoritma klasifikasi digunakan dalam proyek ini: **Logistic Regression**, 
 
 ![Confusion Matrix Logistic Regression](img/logistik.png)
 
-Model pertama yang dilatih adalah **Logistic Regression** sebagai baseline.
+Model pertama yang dilatih adalah **Logistic Regression** sebagai baseline. Model ini memprediksi probabilitas kelas target menggunakan **fungsi sigmoid/logistik**:
 
-* Kelebihan:
+$$
+P(y=1|x) = \frac{1}{1 + e^{-(wX + b)}}
+$$
 
-  * Cepat, efisien, dan memiliki waktu pelatihan yang singkat.
-  * Mudah diinterpretasikan oleh tenaga medis.
-  * Cocok untuk data dengan hubungan linier antar fitur dan target.
-* Kekurangan:
+di mana:
 
-  * Kurang mampu menangkap pola non-linear.
+* $w$: bobot fitur
+* $X$: vektor fitur
+* $b$: bias/intersep
+
+**Parameter yang digunakan:**
+
+```python
+LogisticRegression(max_iter=1000, random_state=42)
+```
+
+* `max_iter=1000`: memastikan model konvergen.
+* `random_state=42`: menjaga konsistensi hasil.
+
+- Kelebihan:
+
+  * Cepat dan efisien.
+  * Mudah diinterpretasikan.
+  * Cocok untuk relasi linier.
+
+- Kekurangan:
+
+  * Kurang efektif untuk pola non-linear.
   * Sensitif terhadap multikolinearitas.
+
+**Evaluasi:**
+
+* Accuracy: 1.00
+* Precision: 1.00
+* Recall: 1.00
+* F1-Score: 1.00
+* Confusion Matrix: TP = 9089, TN = 9089, tanpa kesalahan klasifikasi.
 
 ### 2. Random Forest Classifier
 
 ![Confusion Matrix Random Forest](img/randomf.png)
 
-Model ensambel berbasis pohon keputusan.
+Model ensambel berbasis pohon keputusan yang menggunakan teknik **bagging (Bootstrap Aggregating)**. Setiap decision tree dilatih dari subset acak data dan subset acak fitur, dan prediksi akhir diambil melalui **voting mayoritas** dari semua pohon.
 
-* Kelebihan:
+$$
+\hat{y} = \text{mode}\left\{ h_1(x), h_2(x), ..., h_T(x) \right\}
+$$
+
+di mana:
+
+* $h_t(x)$: prediksi dari pohon ke-$t$
+* $T$: jumlah total pohon dalam hutan
+* `mode`: memilih prediksi yang paling sering muncul
+
+**Parameter yang digunakan:**
+
+```python
+RandomForestClassifier(random_state=42)
+```
+
+* `random_state=42`: menjaga replikasi hasil.
+* `n_estimators=100` digunakan sebagai default (jumlah pohon).
+
+- Kelebihan:
 
   * Tahan terhadap overfitting.
-  * Mampu menangani fitur yang saling berinteraksi dan non-linear.
-* Kekurangan:
+  * Mampu menangani fitur yang berinteraksi dan non-linear.
+  * Memberikan feature importance.
 
-  * Interpretasi model tidak sesederhana Logistic Regression.
-  * Memerlukan lebih banyak memori dan waktu inferensi.
+- Kekurangan:
+
+  * Interpretasi kompleks.
+  * Waktu inferensi dan konsumsi memori lebih tinggi.
 
 **Evaluasi:**
 
@@ -322,16 +372,38 @@ Model ensambel berbasis pohon keputusan.
 
 ![Confusion Matrix SVM](img/svm.png)
 
-Model margin maksimum untuk klasifikasi dua kelas.
+Model klasifikasi margin maksimum yang bekerja dengan mencari **hyperplane optimal** yang memisahkan dua kelas dan memaksimalkan jarak antar kelas (margin):
 
-* Kelebihan:
+$$
+f(x) = wX + b
+$$
 
-  * Mampu menghasilkan decision boundary optimal.
+Dengan margin:
+
+$$
+\text{Margin} = \frac{2}{\|w\|}
+$$
+
+**Parameter yang digunakan:**
+
+```python
+SVC(kernel='linear', probability=True, random_state=42)
+```
+
+* `kernel='linear'`: menggunakan linear kernel karena fitur telah distandardisasi.
+* `probability=True`: menghasilkan estimasi probabilitas klasifikasi.
+* `random_state=42`: menjaga konsistensi pelatihan.
+
+- Kelebihan:
+
+  * Boundary optimal dengan margin maksimum.
   * Cocok untuk data berdimensi tinggi.
-* Kekurangan:
+  * Kuat terhadap outlier di luar margin.
 
-  * Sensitif terhadap skala data, sehingga perlu standardisasi.
-  * Waktu pelatihan lebih lama dibandingkan Logistic Regression.
+- Kekurangan:
+
+  * Sensitif terhadap skala data → perlu standardisasi.
+  * Pelatihan lebih lama, apalagi jika `probability=True`.
 
 **Evaluasi:**
 
@@ -339,7 +411,7 @@ Model margin maksimum untuk klasifikasi dua kelas.
 * Precision: 1.00
 * Recall: 1.00
 * F1-Score: 1.00
-* Confusion Matrix: Seluruh prediksi benar, tanpa kesalahan klasifikasi.
+* Confusion Matrix: TP = 9089, TN = 9089, tanpa kesalahan klasifikasi.
 
 ---
 
