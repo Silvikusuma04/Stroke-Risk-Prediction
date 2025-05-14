@@ -246,18 +246,20 @@ Dataset awal menunjukkan ketidakseimbangan kelas yang moderat. Untuk mencegah bi
 
 ![Distribusi Setelah SMOTE](img/smote.png)
 
-
 ### 4. Simpan Scaler
 
-Setelah proses scaling, objek `StandardScaler` disimpan menggunakan `joblib` ke dalam file `scaler_stroke.pkl`. File ini akan digunakan saat proses inference untuk memastikan konsistensi skala input.
+Setelah proses scaling pada fitur numerik (`Age` dan `Stroke Risk (%)`), objek `StandardScaler` disimpan terlebih dahulu ke dalam file `scaler_stroke.pkl` menggunakan `joblib`. Penyimpanan ini dilakukan **sebelum menyimpan dataset hasil SMOTE**, karena:
+
+* Scaler digunakan **pada tahap awal preprocessing**, dan akan **digunakan ulang saat inferensi** untuk memastikan bahwa data baru memiliki skala yang sama seperti saat pelatihan.
+* Dengan menyimpan scaler lebih dulu, proses deployment dan prediksi ulang menjadi **lebih aman dan konsisten**, terutama dalam pipeline inferensi model.
 
 ```python
 joblib.dump(scaler, 'scaler_stroke.pkl')
 ```
 
-### 5. Simpan Data preprosessing
+### 5. Simpan Dataset Setelah SMOTE
 
-Setelah proses SMOTE selesai, dataset hasil balancing disimpan sebagai `stroke_data_preprocessed_smote.csv` untuk kebutuhan replikasi:
+Setelah data diseimbangkan menggunakan **SMOTE (Synthetic Minority Oversampling Technique)**, hasil balancing disimpan sebagai `stroke_data_preprocessed_smote.csv`. Penyimpanan dilakukan setelah scaler karena balancing dilakukan **setelah data dinormalisasi**.
 
 ```python
 X_resampled['At Risk (Binary)'] = y_resampled
@@ -347,7 +349,7 @@ RandomForestClassifier(random_state=42)
 ```
 
 * `random_state=42`: menjaga replikasi hasil.
-* `n_estimators=100` digunakan sebagai default (jumlah pohon).
+* `n_estimators=100` digunakan sebagai default (jumlah pohon) Tidak disebutkan secara eksplisit.
 
 - Kelebihan:
 
